@@ -8,26 +8,26 @@ HEIGHT=500
 
 message=""
 
-alien=Actor('alien')
+target=Actor('target')
 
 def draw():
     screen.clear()
     screen.fill("black")
-    alien.draw()
+    target.draw()
     screen.draw.text(message,center=(400,10), fontsize=30)
 
-def place_alien():
-    alien.x=randint(50,WIDTH-50)
-    alien.y=randint(50,HEIGHT-50)
+def place_target():
+    target.x=randint(50,WIDTH-50)
+    target.y=randint(50,HEIGHT-50)
 
 def on_mouse_down(pos):
     global message
-    if alien.collidepoint(pos):
+    if target.collidepoint(pos):
         message="Good Shot"
-        place_alien()
+        place_target()
     else:
         message="You Missed"
 
 
-place_alien()
+place_target()
 pgzrun.go()
