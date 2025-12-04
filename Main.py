@@ -1,33 +1,58 @@
 import pgzrun
 from random import randint
 
-TITLE="GOOD SHOT"
+WIDTH=600
+HEIGHT=600
 
-WIDTH=500
-HEIGHT=500
+tom=Actor('tom')
+tom.pos=100,100
 
-message=""
+jerry=Actor('jerry')
+jerry.pos=200,200
 
-target=Actor('target')
+score=0
+game_over=False
 
 def draw():
-    screen.clear()
-    screen.fill("black")
-    target.draw()
-    screen.draw.text(message,center=(400,10), fontsize=30)
+    screen.blit('tomandjerrybg',(0,0))
 
-def place_target():
-    target.x=randint(50,WIDTH-50)
-    target.y=randint(50,HEIGHT-50)
+    tom.draw()
+    jerry.draw()
 
-def on_mouse_down(pos):
-    global message
-    if target.collidepoint(pos):
-        message="Good Shot"
-        place_target()
-    else:
-        message="You Missed"
+    screen.draw.text('Score='+str(score),color="black",topleft=(10,10))
 
+    if game_over:
+        screen.fill("black")
+        screen.draw.text("Time's Up",midtop=(300,10),fontsize=40,color="red")
 
-place_target()
+def place_jerry():
+    jerry.x=randint(50,WIDTH-50)
+    jerry.y=randint(50,HEIGHT-50)
+
+def update():
+    global score
+    if keyboard.left:
+        tom.x-=2
+    
+    if keyboard.right:
+        tom.x+=2
+    
+    if keyboard.up:
+        tom.y-=2
+
+    if keyboard.down:
+        tom.y+=2
+
+    jerrycaught=tom.colliderect(jerry)
+
+    if jerrycaught:
+        score+=10
+        place_jerry()
+
+def time_up():
+    global game_over
+    game_over=True
+
+clock.schedule(time_up,60.0)
+
 pgzrun.go()
