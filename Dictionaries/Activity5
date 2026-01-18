@@ -1,0 +1,19 @@
+number=int(input("How many words do you want to group by length?"))
+
+words=[]
+
+for i in range(number):
+    word=input("Enter the word ")
+    words.append(word)
+
+def group_by_length(words):
+    lengthgroup={}
+    for word in words:
+        wordlength=len(word)
+        if wordlength not in lengthgroup:
+            lengthgroup[wordlength]=[]
+        lengthgroup[wordlength].append(word)
+    return lengthgroup
+
+result=group_by_length(words)
+print (result)

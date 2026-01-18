@@ -23,6 +23,24 @@ print (capitals.values())
 print (len(capitals))
 
 #Finding if a key is in the dictionary
-print ('USA' in capitals)
+if 'USA' in capitals:
+    print ("True")
+else:
+    print ("False")
 
-print ('Canada' in capitals)
+#Deleting a key and it's value from the dictionary
+del capitals['Afghanistan']
+
+print (capitals)
+
+#Changing the value of a key
+capitals['USA']="Florida"
+
+print (capitals)
+
+countries=[]
+for k in capitals:
+    countries.append(k)
+
+countries.sort()
+print (countries)
