@@ -19,7 +19,7 @@ screen.geometry("500x500")
 screen.title("Digital Clock")
 
 l1=Label(text="Digital Calendar and Clock",width=30,height=3,fg="black",bg="lightgrey",font=('Arial',25))
-l1.place(x=0,y=50)
+l1.place(x=-10,y=50)
 
 b1=Button(text="Show time",width=20,height=2,bg="lime",fg="black",command=get_time)
 b1.place(x=200,y=150)
