@@ -4,13 +4,14 @@ from tkinter import *
 def get_colour():
     color=str(colour.get())
     screen.configure(bg=color)
+    l1.configure(bg=color)
 
 screen=Tk()
 screen.config(bg="white")
 screen.title("Theme Changer")
 screen.geometry("500x500")
 
-l1=Label(text="Choose background theme",width=20,height=3,fg="black",bg="white",font=('TKDefaultFont',20))
+l1=Label(text="Choose background theme",width=20,height=2,fg="black",bg="white",font=('TKDefaultFont',20))
 l1.place(x=100,y=20)
 
 colour=StringVar()
