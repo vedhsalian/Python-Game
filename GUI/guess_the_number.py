@@ -16,6 +16,7 @@ def get_result():
         answer="Guess lower"
     elif guess==correct:
         answer="You guessed correct"
+        attempts+=1
         b1.config(state="disabled")
         e1.config(state="disabled")
     messagebox.showinfo("Result",answer)

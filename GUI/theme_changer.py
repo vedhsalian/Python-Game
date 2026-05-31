@@ -5,6 +5,9 @@ def get_colour():
     color=str(colour.get())
     screen.configure(bg=color)
     l1.configure(bg=color)
+    r1.configure(bg=color)
+    r2.configure(bg=color)
+    r3.configure(bg=color)
 
 screen=Tk()
 screen.config(bg="white")
