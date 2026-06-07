@@ -51,7 +51,7 @@ b3.place(x=720,y=195)
 b4=Button(text="Read text",width=20,height=2,fg="black",bg="red",command=read_text)
 b4.place(x=720,y=240)
 
-t2=Text(width=80,height=10,fg="black",bg="white")
+t2=Text(width=80,height=10,fg="black",bg="lightgrey")
 t2.place(x=180,y=300)
 
 screen.mainloop()
