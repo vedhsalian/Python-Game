@@ -1,9 +1,13 @@
 import pygame
 
 pygame.init()
+pygame.mixer.init()
 
 screen=pygame.display.set_mode((800,800))
 pygame.display.set_caption("Ping Pong Game")
+
+hitsfx="Ping Pong Game/HitSFX.mp3"
+pygame.mixer.music.load(hitsfx)
 
 racket1=pygame.image.load("Ping Pong Game/Images/Racket1.png").convert_alpha()
 racket1=pygame.transform.scale(racket1,(80,80))
@@ -38,6 +42,7 @@ text2=font1.render("RACKET 2 SCORE: "+str(score2),True,"red")
 
 dx=0.2
 dy=0.2
+is_touching=False
 
 while gameloop:
     bx+=dx 
@@ -54,19 +59,29 @@ while gameloop:
         by=400
         text2=font1.render("RACKET 2 SCORE: "+str(score2),True,"red")
         dx*=-1
-    elif bx>800:
+    if bx>800:
         score1+=1
         bx=400
         by=400
         text1=font1.render("RACKET 1 SCORE: "+str(score1),True,"blue")
         dx*=-1
 
-    if BallSprite.colliderect(racket1Sprite):
-        dx*=-1
-        dy*=-1
-    elif BallSprite.colliderect(racket2Sprite):
-        dx*=-1
-        dy*=-1
+    if BallSprite.colliderect(racket1Sprite) and is_touching==False:
+        dx=-0.2
+        dy=-0.2
+        bx+=50
+        by+=50
+        print(dx,dy)
+        pygame.mixer.music.play(1)
+        is_touching=True
+    if BallSprite.colliderect(racket2Sprite) and is_touching==False:
+        dx=0.2
+        dy=0.2
+        print(dx,dy)
+        pygame.mixer.music.play(1)
+        is_touching=True
+    if BallSprite.clipline((400,0),(400,800)):
+        is_touching=False
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -112,8 +127,18 @@ while gameloop:
     
     if BallSprite.colliderect(racket1Sprite):
         dx*=-1
+        dy*=-1
     if BallSprite.colliderect(racket2Sprite):
         dx*=-1
+        dy*=-1
+
+    if score1-score2>=5:
+        print("Player 1 Wins!")
+        gameloop=False
+
+    if score2-score1>=5:
+        print("Player 2 Wins!")
+        gameloop=False
 
     screen.fill((0,0,0))
     screen.blit(racket1,racket1Sprite)
@@ -122,6 +147,7 @@ while gameloop:
     screen.blit(text1,(10,10))
     screen.blit(text2,(650,10))
     BallSprite.center=(bx,by)
+    pygame.draw.line(screen,"white",(400,0),(400,800),width=2)
     pygame.display.update()
 
 pygame.quit()
