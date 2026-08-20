@@ -13,9 +13,8 @@ racket1=pygame.image.load("Ping Pong Game/Images/Racket1.png").convert_alpha()
 racket1=pygame.transform.scale(racket1,(80,80))
 racket1Sprite=racket1.get_rect()
 
-racket2=pygame.image.load("Ping Pong Game/Images/Racket2.png").convert_alpha()
-racket2=pygame.transform.scale(racket2,(90,90))
-racket2Sprite=racket2.get_rect()
+
+racket2Sprite=racket1.get_rect()
 
 Ball=pygame.image.load("Ping Pong Game/Images/Ball.png").convert_alpha()
 Ball=pygame.transform.scale(Ball,(30,30))
@@ -49,9 +48,9 @@ while gameloop:
     by+=dy
 
     if by>800:
-        dy*=-1
+        dy=0.2
     if by<0:
-        dy*=-1
+        dy=-0.2
 
     if bx<0:
         score2+=1
@@ -66,9 +65,11 @@ while gameloop:
         text1=font1.render("RACKET 1 SCORE: "+str(score1),True,"blue")
         dx*=-1
 
+    
+
     if BallSprite.colliderect(racket1Sprite) and is_touching==False:
         dx=-0.2
-        dy=-0.2
+        dy=0.2
         bx+=50
         by+=50
         print(dx,dy)
@@ -76,7 +77,9 @@ while gameloop:
         is_touching=True
     if BallSprite.colliderect(racket2Sprite) and is_touching==False:
         dx=0.2
-        dy=0.2
+        dy=-0.2
+        bx-=50
+        by-=50
         print(dx,dy)
         pygame.mixer.music.play(1)
         is_touching=True
@@ -89,9 +92,9 @@ while gameloop:
             
         keys=pygame.key.get_pressed()
 
-        if keys[pygame.K_a] and racket1Sprite.x>40:
+        if keys[pygame.K_a] and racket1Sprite.x>20:
             racket1Sprite.x-=50
-        if keys[pygame.K_d] and racket1Sprite.x<400-120:
+        if keys[pygame.K_d] and racket1Sprite.x<360:
             racket1Sprite.x+=50
         if keys[pygame.K_w] and racket1Sprite.y>40:
             racket1Sprite.y-=50
@@ -142,7 +145,7 @@ while gameloop:
 
     screen.fill((0,0,0))
     screen.blit(racket1,racket1Sprite)
-    screen.blit(racket2,racket2Sprite)
+    screen.blit(racket1,racket2Sprite)
     screen.blit(Ball,BallSprite)
     screen.blit(text1,(10,10))
     screen.blit(text2,(650,10))
